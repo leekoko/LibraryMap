@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.librarymap.mapper.BookMapper" >
+  <resultMap id="BaseResultMap" type="com.librarymap.pojo.Book" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="bookId" property="bookid" jdbcType="VARCHAR" />
+    <result column="shelfno" property="shelfno" jdbcType="VARCHAR" />
+    <result column="callno" property="callno" jdbcType="VARCHAR" />
+    <result column="typeCode" property="typecode" jdbcType="VARCHAR" />
+    <result column="tsm1" property="tsm1" jdbcType="VARCHAR" />
+    <result column="tsm2" property="tsm2" jdbcType="VARCHAR" />
+    <result column="tsm3" property="tsm3" jdbcType="VARCHAR" />
+    <result column="tsm4" property="tsm4" jdbcType="VARCHAR" />
+    <result column="tsm5" property="tsm5" jdbcType="VARCHAR" />
+    <result column="tsm6" property="tsm6" jdbcType="VARCHAR" />
+    <result column="tsm7" property="tsm7" jdbcType="VARCHAR" />
+    <result column="tsm8" property="tsm8" jdbcType="VARCHAR" />
+    <result column="createDate" property="createdate" jdbcType="VARCHAR" />
+    <result column="modifyDate" property="modifydate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, title, author, bookId, shelfno, callno, typeCode, tsm1, tsm2, tsm3, tsm4, tsm5, 
+    tsm6, tsm7, tsm8, createDate, modifyDate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.librarymap.pojo.BookExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from book
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from book
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from book
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.librarymap.pojo.BookExample" >
+    delete from book
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.librarymap.pojo.Book" >
+    insert into book (id, title, author, 
+      bookId, shelfno, callno, 
+      typeCode, tsm1, tsm2, 
+      tsm3, tsm4, tsm5, tsm6, 
+      tsm7, tsm8, createDate, 
+      modifyDate)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{bookid,jdbcType=VARCHAR}, #{shelfno,jdbcType=VARCHAR}, #{callno,jdbcType=VARCHAR}, 
+      #{typecode,jdbcType=VARCHAR}, #{tsm1,jdbcType=VARCHAR}, #{tsm2,jdbcType=VARCHAR}, 
+      #{tsm3,jdbcType=VARCHAR}, #{tsm4,jdbcType=VARCHAR}, #{tsm5,jdbcType=VARCHAR}, #{tsm6,jdbcType=VARCHAR}, 
+      #{tsm7,jdbcType=VARCHAR}, #{tsm8,jdbcType=VARCHAR}, #{createdate,jdbcType=VARCHAR}, 
+      #{modifydate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.librarymap.pojo.Book" >
+    insert into book
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="bookid != null" >
+        bookId,
+      </if>
+      <if test="shelfno != null" >
+        shelfno,
+      </if>
+      <if test="callno != null" >
+        callno,
+      </if>
+      <if test="typecode != null" >
+        typeCode,
+      </if>
+      <if test="tsm1 != null" >
+        tsm1,
+      </if>
+      <if test="tsm2 != null" >
+        tsm2,
+      </if>
+      <if test="tsm3 != null" >
+        tsm3,
+      </if>
+      <if test="tsm4 != null" >
+        tsm4,
+      </if>
+      <if test="tsm5 != null" >
+        tsm5,
+      </if>
+      <if test="tsm6 != null" >
+        tsm6,
+      </if>
+      <if test="tsm7 != null" >
+        tsm7,
+      </if>
+      <if test="tsm8 != null" >
+        tsm8,
+      </if>
+      <if test="createdate != null" >
+        createDate,
+      </if>
+      <if test="modifydate != null" >
+        modifyDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="bookid != null" >
+        #{bookid,jdbcType=VARCHAR},
+      </if>
+      <if test="shelfno != null" >
+        #{shelfno,jdbcType=VARCHAR},
+      </if>
+      <if test="callno != null" >
+        #{callno,jdbcType=VARCHAR},
+      </if>
+      <if test="typecode != null" >
+        #{typecode,jdbcType=VARCHAR},
+      </if>
+      <if test="tsm1 != null" >
+        #{tsm1,jdbcType=VARCHAR},
+      </if>
+      <if test="tsm2 != null" >
+        #{tsm2,jdbcType=VARCHAR},
+      </if>
+      <if test="tsm3 != null" >
+        #{tsm3,jdbcType=VARCHAR},
+      </if>
+      <if test="tsm4 != null" >
+        #{tsm4,jdbcType=VARCHAR},
+      </if>
+      <if test="tsm5 != null" >
+        #{tsm5,jdbcType=VARCHAR},
+      </if>
+      <if test="tsm6 != null" >
+        #{tsm6,jdbcType=VARCHAR},
+      </if>
+      <if test="tsm7 != null" >
+        #{tsm7,jdbcType=VARCHAR},
+      </if>
+      <if test="tsm8 != null" >
+        #{tsm8,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydate != null" >
+        #{modifydate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.librarymap.pojo.BookExample" resultType="java.lang.Integer" >
+    select count(*) from book
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update book
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.author != null" >
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookid != null" >
+        bookId = #{record.bookid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shelfno != null" >
+        shelfno = #{record.shelfno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.callno != null" >
+        callno = #{record.callno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typecode != null" >
+        typeCode = #{record.typecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tsm1 != null" >
+        tsm1 = #{record.tsm1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tsm2 != null" >
+        tsm2 = #{record.tsm2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tsm3 != null" >
+        tsm3 = #{record.tsm3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tsm4 != null" >
+        tsm4 = #{record.tsm4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tsm5 != null" >
+        tsm5 = #{record.tsm5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tsm6 != null" >
+        tsm6 = #{record.tsm6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tsm7 != null" >
+        tsm7 = #{record.tsm7,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tsm8 != null" >
+        tsm8 = #{record.tsm8,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdate != null" >
+        createDate = #{record.createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifydate != null" >
+        modifyDate = #{record.modifydate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update book
+    set id = #{record.id,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      bookId = #{record.bookid,jdbcType=VARCHAR},
+      shelfno = #{record.shelfno,jdbcType=VARCHAR},
+      callno = #{record.callno,jdbcType=VARCHAR},
+      typeCode = #{record.typecode,jdbcType=VARCHAR},
+      tsm1 = #{record.tsm1,jdbcType=VARCHAR},
+      tsm2 = #{record.tsm2,jdbcType=VARCHAR},
+      tsm3 = #{record.tsm3,jdbcType=VARCHAR},
+      tsm4 = #{record.tsm4,jdbcType=VARCHAR},
+      tsm5 = #{record.tsm5,jdbcType=VARCHAR},
+      tsm6 = #{record.tsm6,jdbcType=VARCHAR},
+      tsm7 = #{record.tsm7,jdbcType=VARCHAR},
+      tsm8 = #{record.tsm8,jdbcType=VARCHAR},
+      createDate = #{record.createdate,jdbcType=VARCHAR},
+      modifyDate = #{record.modifydate,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.librarymap.pojo.Book" >
+    update book
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="bookid != null" >
+        bookId = #{bookid,jdbcType=VARCHAR},
+      </if>
+      <if test="shelfno != null" >
+        shelfno = #{shelfno,jdbcType=VARCHAR},
+      </if>
+      <if test="callno != null" >
+        callno = #{callno,jdbcType=VARCHAR},
+      </if>
+      <if test="typecode != null" >
+        typeCode = #{typecode,jdbcType=VARCHAR},
+      </if>
+      <if test="tsm1 != null" >
+        tsm1 = #{tsm1,jdbcType=VARCHAR},
+      </if>
+      <if test="tsm2 != null" >
+        tsm2 = #{tsm2,jdbcType=VARCHAR},
+      </if>
+      <if test="tsm3 != null" >
+        tsm3 = #{tsm3,jdbcType=VARCHAR},
+      </if>
+      <if test="tsm4 != null" >
+        tsm4 = #{tsm4,jdbcType=VARCHAR},
+      </if>
+      <if test="tsm5 != null" >
+        tsm5 = #{tsm5,jdbcType=VARCHAR},
+      </if>
+      <if test="tsm6 != null" >
+        tsm6 = #{tsm6,jdbcType=VARCHAR},
+      </if>
+      <if test="tsm7 != null" >
+        tsm7 = #{tsm7,jdbcType=VARCHAR},
+      </if>
+      <if test="tsm8 != null" >
+        tsm8 = #{tsm8,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        createDate = #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydate != null" >
+        modifyDate = #{modifydate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.librarymap.pojo.Book" >
+    update book
+    set title = #{title,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      bookId = #{bookid,jdbcType=VARCHAR},
+      shelfno = #{shelfno,jdbcType=VARCHAR},
+      callno = #{callno,jdbcType=VARCHAR},
+      typeCode = #{typecode,jdbcType=VARCHAR},
+      tsm1 = #{tsm1,jdbcType=VARCHAR},
+      tsm2 = #{tsm2,jdbcType=VARCHAR},
+      tsm3 = #{tsm3,jdbcType=VARCHAR},
+      tsm4 = #{tsm4,jdbcType=VARCHAR},
+      tsm5 = #{tsm5,jdbcType=VARCHAR},
+      tsm6 = #{tsm6,jdbcType=VARCHAR},
+      tsm7 = #{tsm7,jdbcType=VARCHAR},
+      tsm8 = #{tsm8,jdbcType=VARCHAR},
+      createDate = #{createdate,jdbcType=VARCHAR},
+      modifyDate = #{modifydate,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+<!-- 非自动生成 -->
+  <select id="selectByLikeExample" resultMap="BaseResultMap" parameterType="String" >
+    select
+    <include refid="Base_Column_List" />
+    from book
+	where title like #{title,jdbcType=VARCHAR} limit 10 
+  </select>  
+  
+  
+</mapper>
