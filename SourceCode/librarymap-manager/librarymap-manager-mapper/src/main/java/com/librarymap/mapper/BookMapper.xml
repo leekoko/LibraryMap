@@ -403,7 +403,7 @@
     select
     <include refid="Base_Column_List" />
     from book
-	where title like #{title,jdbcType=VARCHAR} limit 10 
+	where title like #{title,jdbcType=VARCHAR}
   </select>  
   
   

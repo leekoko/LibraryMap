@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
-	<script type="text/javascript" src="/js/jQuery/jquery.min.1.7.1.js"></script>
+<script type="text/javascript" src="/js/jQuery/jquery.min.1.7.1.js"></script>
 <script type="text/javascript">
 $(function() {
 	$('#keyword').keyup(function initList(){
@@ -37,35 +37,6 @@ $(function() {
 	});	
 });
 
-/* function searchBook(){
-	var bookId = $.trim($("#bookId").val());
-	if(bookId != null || bookId != 0 ||bookId != ""){
-		$.ajax({
-			type:'post',
-			data:{
-				title:input
-			},
-			url:'${pageContext.request.contextPath}/title/list',
-			cache:false,//不从浏览器缓存中加载请求信息 
-			dataType: 'json',//返回数据  
-			success: function (data) {
-				if(data.length > 0){
-                    var lists  = "<ul id='list'>";  
-					$.each(data, function () { 
-	                 	lists += "<li onclick='initTest(this)' value='"+this.bookid+"'>"+ this.title +"</li>";
-					});
-					lists+="</ul>";
-					$("#searchBox").html(lists).show();//将搜索到的结果展示出来  
-				}
-			}
-		});
-	}else{
-		$("#searchBox").html("对不起，找不到信息").show();//将搜索到的结果展示出来 
-	}
-	
-	alert(bookId);
-}
- */
 
 
 //填入内容框

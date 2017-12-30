@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageHelper;
+import com.librarymap.common.utils.JsonUtils;
 import com.librarymap.pojo.Book;
+import com.librarymap.pojo.BookExample;
 import com.librarymap.service.IbookService;
 
 @Controller
@@ -29,14 +32,19 @@ public class BookController {
 	
 	@RequestMapping("/title/list")
 	@ResponseBody
-	public List<Book> getBookByLikeTitle(String title,HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException{
+	public String getBookByLikeTitle(String title,HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException{
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
+		int page = Integer.parseInt(request.getParameter("page"));
+		int size = Integer.parseInt(request.getParameter("size"));
+		BookExample example = new BookExample();
+		PageHelper.startPage(page, size);
 		List<Book> books = bookService.selectByLikeTitle(title);
 		for (int i = 0; i < books.size(); i++) {
 			System.out.println(books.get(i).getTitle());
 		}
-		return books;
+		String json = JsonUtils.objectToJson(books);
+		return json;
 	}
 	
 }
