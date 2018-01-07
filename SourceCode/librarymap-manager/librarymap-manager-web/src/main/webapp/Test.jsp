@@ -146,7 +146,7 @@ $(function() {
 		                if(arrLen > 0){
 		                    for(var i=0; i<arrLen; i++){
 		                    	shelfno = changeShelf(data[i].shelfno);
-		                        result += "<a class='item opacity' href='#'>";
+		                        result += "<a class='item opacity' href='#' lang='"+data[i].title+"' onclick='selectIt(this)'>";
 		                        result += "<img src='#' alt=''>"
 		                        result += "<h3>"+data[i].title+"</h3>"
 		                        result += "<span class='date'>"+data[i].author+"</div>"
@@ -164,6 +164,9 @@ $(function() {
 		                }
 	                    // 插入数据到页面，放到最后面
 	                    $('.lists').append(result);
+/* 	                	$("a[class='opacity']").click(function(){
+	                		alert(1);
+	                	}); */
 	                    me.resetload();  
 		            },
 		            error: function(xhr, type){
@@ -196,7 +199,7 @@ function checkInput(){
 	                	result = '';
 	                    for(var i=0; i<arrLen; i++){
 	                    	shelfno = changeShelf(data[i].shelfno);
-	                        result += "<a class='item opacity' href='#'>";
+	                        result += "<a class='item opacity' href='#' lang='"+data[i].title+"' onclick='selectIt(this)'>";
 	                        result += "<img src='#' alt=''>"
 	                        result += "<h3>"+data[i].title+"</h3>"
 	                        result += "<div class='date'>"+data[i].author+"</div>"
@@ -237,7 +240,24 @@ function changeShelf(shelfno){
 	}
 	return str;
 }
-
+//根据选中的信息去查询书籍相关
+function selectIt(obj){
+	var title = $(obj).attr("lang");
+	$.ajax({
+		type:'post',
+		data:{
+			title:title
+		},
+		url:'${pageContext.request.contextPath}/title/detail',
+		cache:false,//不从浏览器缓存中加载请求信息 
+		dataType: 'json',//返回数据  
+		success: function (data) {
+			alert("获取到了数据");
+			alert(data);
+		}
+	});
+	
+}
 
 
 </script>

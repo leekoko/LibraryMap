@@ -26,4 +26,16 @@ public class JunitTest {
 		}
 		PageInfo<Book> pageInfo = new PageInfo<>(list);
 	}
+	@Test
+	public void testStringCut(){
+		String st = "abcdefg.jpg";
+		if(st.contains("cdesf")){
+			System.out.println("包含");
+		}else{
+			System.out.println("不包含");
+		}
+		
+		System.out.println(st.substring(st.indexOf("cde"), st.lastIndexOf(".jpg")));
+		
+	}
 }

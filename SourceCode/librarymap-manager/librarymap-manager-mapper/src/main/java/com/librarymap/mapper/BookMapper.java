@@ -27,7 +27,7 @@ public interface BookMapper {
     int updateByPrimaryKeySelective(Book record);
 
     int updateByPrimaryKey(Book record);
-/*非自动生成*/    
+  
     List<Book> selectByLikeExample(String title);
     
 }
