@@ -10,7 +10,7 @@
 .metadata/
 
 
-
+.recommenders/
 
 
 # 忽略 eclipse创建的 RemoteSystemsTempFiles/ 文件夹
