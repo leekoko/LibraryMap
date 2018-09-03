@@ -10,11 +10,13 @@
 $(function() {
 	$('#keyword').keyup(function initList(){
 		var input = $.trim($("#keyword").val());
-        if(input!=""){//检测键盘输入的内容是否为空，为空就不发出请求  
+        if(input!=""){//检测键盘输入的内容是否为空，为空就不发出请求
 			$.ajax({
 				type:'post',
 				data:{
-					title:input
+					title:input,
+					page:1,
+					size:5
 				},
 				url:'${pageContext.request.contextPath}/title/list',
 				cache:false,//不从浏览器缓存中加载请求信息 
@@ -64,6 +66,7 @@ function changeShelf(shelfno){
 	}
 	return str;
 }
+
 
 </script>
 
